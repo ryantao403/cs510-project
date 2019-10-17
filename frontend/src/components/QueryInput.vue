@@ -21,6 +21,7 @@
     methods: {
       search() {
         alert('Search ' + this.form.query)
+        console.log(this.$store.state.dummy)
       }
     }
   }
