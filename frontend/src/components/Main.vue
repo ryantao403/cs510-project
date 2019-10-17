@@ -1,12 +1,16 @@
 <template>
   <div class="main">
-    
+    <QueryInput />
   </div>
 </template>
 
 <script>
+import QueryInput from './QueryInput.vue'
 export default {
   name: 'Main',
+  components: {
+    QueryInput
+  }
 }
 </script>
 
