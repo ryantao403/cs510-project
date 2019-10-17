@@ -1,24 +1,29 @@
 <template>
-    <div class="query-input">
-        <el-input v-model="query" placeholder="Enter the query" size='medium'></el-input>
-        <el-button type="primary" @click="search">Search</el-button>
-    </div>    
+    <el-form :inline="true" :model="form">
+        <el-form-item>
+            <el-input v-model="form.query" placeholder="Enter the query"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="search">Search</el-button>
+        </el-form-item>
+    </el-form>
 </template>
 
 <script>
-export default {
-    name: 'QueryInput',
+  export default {
     data() {
-        return {
-            query: ''
-        }        
+      return {
+        form: {
+          query: ''
+        }
+      }
     },
     methods: {
-        search() {
-            alert(this.query)
-        }
+      search() {
+        alert('Search ' + this.form.query)
+      }
     }
-}
+  }
 </script>
 
 <style scoped>
