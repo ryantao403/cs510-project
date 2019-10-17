@@ -16,17 +16,21 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 
 
 @app.route('/results', methods=['GET', 'POST'])
-def all_books():
+def results():
     response_object = {'status': 'success'}
     resList = []
-    if request.method == 'POST':
-        post_data = request.get_json()
-        resList.append({
-            'title': post_data.get('title'),
-            'link': post_data.get('link'),
-            'content': post_data.get('content')
-        })
+    # if request.method == 'POST':
+    post_data = request.get_json()
+    resList.append({
+        # 'title': post_data.get('title'),
+        # 'link': post_data.get('link'),
+        # 'content': post_data.get('content')
+        'title':"title",
+        'link':"link",
+        'content': "content"
+    })
     response_object['data'] = resList
+    print(response_object)
     return jsonify(response_object)
 
 @app.route('/', methods=['GET'])
