@@ -124,10 +124,3 @@ class Searcher:
         query_results = json.dumps(query_results)
         return query_results
 
-
-# examples to setup the search engine and perform search
-parser = Parser()
-searcher = Searcher(index_path = './indexdir', parser = parser)
-# to search
-query = 'hello'
-searcher.search(query)

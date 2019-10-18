@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask import abort, redirect, url_for, render_template
 from flask import request, session
 import json
+import search_engine
 
 # configuration
 DEBUG = True
@@ -36,6 +37,14 @@ def results():
 @app.route('/', methods=['GET'])
 def index():
     return jsonify('main page')
+
+@app.route('/happy', methods=['GET'])
+def happy():
+    parser = search_engine.Parser()
+    searcher = search_engine.Searcher(index_path = './indexdir', parser = parser)
+    query = 'hello'
+    results = searcher.search(query)
+    return jsonify(results)
 
 
 if __name__ == '__main__':
