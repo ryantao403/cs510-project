@@ -20,7 +20,8 @@
     },
     methods: {
       search() {
-        alert('Search ' + this.form.query)
+        //alert('Search ' + this.form.query)
+        this.$store.commit('setDummyDocuments')
       }
     }
   }
