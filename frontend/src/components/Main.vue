@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <QueryInput />
+    <DocumentTable />
         <div>
         <p>{{ msg }}</p>
       </div>
@@ -9,12 +10,14 @@
 
 <script>
 import QueryInput from './QueryInput.vue'
+import DocumentTable from './DocumentTable'
 import axios from 'axios';
 
 export default {
   name: 'Main',
   components: {
-    QueryInput
+    QueryInput,
+    DocumentTable
   },
   data() {
     return {
