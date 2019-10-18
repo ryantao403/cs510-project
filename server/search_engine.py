@@ -1,14 +1,14 @@
 from whoosh.index import *
 from whoosh.fields import *
 from whoosh.qparser import *
+from bs4 import BeautifulSoup as bs4
 import os
 import glob 
 import json
 
 class Parser :
-    def __init__(self, indexing_dir = "./grobid_processed/") :
+    def __init__(self, indexing_dir = "./papers_to_index/") :
         self.dir = indexing_dir
-        self.articles = []
         self.article_dict = {}
 
         
@@ -25,7 +25,20 @@ class Parser :
                 article['abstract'] = lines[idx+1].strip() if len(lines) > idx + 1 else ''
             if len(article) == 2 :
                 break
+        raw.close()
         return article if len(article) == 2 else None
+
+
+    def parse_xml_article(self, article_path) :
+        with open(article_path, 'r') as doc :
+            soup = bs4(doc, 'lxml')
+            article = dict()
+            try :
+                article['title'] = soup.title.getText()
+                article['abstract'] = soup.abstract.getText()
+            except :
+                article = None
+        return article
 
     
     def parse_all(self) :
@@ -34,16 +47,19 @@ class Parser :
         for filepath in os.listdir(self.dir) :
             count_files += 1
             path = os.path.join(self.dir, filepath)
-            article = self.parse_article(path) 
+            article = self.parse_xml_article(path) 
             if article :
                 if article['title'].strip() == '' :
                     count_abnormal_parses += 1
 #                     print("### Invalid Article:", filepath)
                     continue
                 article['filename'] = filepath
-                self.articles.append(article)
                 self.article_dict[filepath] = {'title': article['title'], 'abstract': article['abstract']}
         print("### Parse Completed [%d/%d]" % (count_files - count_abnormal_parses, count_files))
+    
+
+    def clean(self) :
+        self.article_dict = {}
     
 
 class Searcher:
@@ -71,6 +87,7 @@ class Searcher:
             self.parser.parse_all()
             self.idx = create_in(self.index_path, self.schema, indexname=self.index_name)
             self.add_files()
+            self.parser.clean()
         else :
             self.idx = open_dir(self.index_path, indexname=self.index_name)
 
@@ -102,9 +119,8 @@ class Searcher:
             for r in results:
                 query_results.append(dict(r))
 
-#         searcher.close()
-        # for v in query_results :
-        #     print(v)
+        for v in query_results :
+            print(v)
         query_results = json.dumps(query_results)
         return query_results
 
