@@ -1,3 +1,10 @@
 frontend/dist.zip
 frontend/.vs/slnx.sqlite
 frontend/.vs/VSWorkspaceState.json
+*.tgz
+*.tar
+server/papers_to_index/
+server/.vs/
+server/grobid_processed/
+server/indexdir/_papers_1.toc
+server/indexdir/
