@@ -41,19 +41,19 @@ export default {
         },
         yesClicked(row) {
             console.log('relevant' + row.title)
-            // this.$store.dispatch('markRelevance', {
-            //     title: row.title,
-            //     path: row.path,
-            //     relevant: true
-            // })            
+            this.$store.dispatch('markRelevance', {
+                title: row.title,
+                path: row.path,
+                relevant: true
+             })            
         },
         noClicked(row) {
             console.log('not relevant' + row.title)
-            // this.$store.dispatch('markRelevance', {
-            //     title: row.title,
-            //     path: row.path,
-            //     relevant: false
-            // })            
+            this.$store.dispatch('markRelevance', {
+                title: row.title,
+                path: row.path,
+                relevant: false
+            })            
         }
     }
 }

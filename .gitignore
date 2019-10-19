@@ -8,3 +8,4 @@ server/.vs/
 server/grobid_processed/
 server/indexdir/_papers_1.toc
 server/indexdir/
+server/__pycache__

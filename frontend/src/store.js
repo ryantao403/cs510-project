@@ -41,7 +41,7 @@ export default new Vuex.Store({
                     relevant: payload.relevant
                 },
                 success: (res) => {
-                    console.log(payload.title + ' ' + payload.relevant)
+                    console.log(res.title + ' ' + res.relevant)
                 },
                 error: (ex) => {
                     console.log(e)
