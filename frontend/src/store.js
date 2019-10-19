@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import $ from 'jquery'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -10,29 +11,20 @@ export default new Vuex.Store({
     mutations: {
         setDocuments (state, documents) {
             state.documents = documents
-        },
-        setDummyDocuments(state) {
-            state.documents = [
-                {
-                    id: 0,
-                    title: 'Fake title 1',
-                    link: 'https://google.com',
-                    abstract: 'Fake abstract 1'
+        },        
+    },
+    actions: {
+        search(state, query){
+            $.ajax({
+                type: "POST",
+                url: '/search/query',
+                data: {
+                    query: query
                 },
-                {
-                    id: 1,
-                    title: 'Fake title 2',
-                    link: 'https://google.com',
-                    abstract: 'Fake abstract 2'
-                },
-                {
-                    id: 2,
-                    title: 'Fake title 3',
-                    link: 'https://google.com',
-                    abstract: 'Fake abstract 3'
+                success: (res) => {
+                    state.commit('setDocuments', res)
                 }
-            ]
-            console.log('setDummyDocuments')
+            })
         }
     }
 })
