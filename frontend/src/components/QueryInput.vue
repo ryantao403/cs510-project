@@ -25,10 +25,3 @@
     }
   }
 </script>
-
-<style scoped>
-.query-input {
-    text-align: center;
-    width: 20%;
-}
-</style>
