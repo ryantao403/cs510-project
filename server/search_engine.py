@@ -121,6 +121,5 @@ class Searcher:
 
         for v in query_results :
             print(v)
-        query_results = json.dumps(query_results)
         return query_results
 
