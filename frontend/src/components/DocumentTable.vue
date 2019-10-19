@@ -8,7 +8,7 @@
             <el-table-column type="index"></el-table-column>
             <el-table-column label="Title" width="180">
                 <template slot-scope="scope">
-                    <div><a :href="getAclLink(scope.row)">{{ scope.row.title }}</a></div>
+                    <div><a :href="getAclLink(scope.row)" target="_blank">{{ scope.row.title }}</a></div>
                 </template>
             </el-table-column>
             <el-table-column prop="abstract" label="Abstract"></el-table-column>
@@ -17,8 +17,8 @@
                 label="Relevant?"
                 width="150">
                 <template slot-scope="scope">
-                    <el-button @click="yesClicked(scope.row)" type="success" icon="el-icon-check" circle size="small"></el-button>
-                    <el-button @click="noClicked(scope.row)" type="danger" icon="el-icon-close" circle size="small"></el-button>
+                    <el-button @click="yesClicked(scope.row)" type="success" icon="el-icon-check" circle size="mini"></el-button>
+                    <el-button @click="noClicked(scope.row)" type="danger" icon="el-icon-close" circle size="mini"></el-button>
                 </template>
             </el-table-column>
         </el-table>

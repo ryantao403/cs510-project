@@ -1,27 +1,30 @@
 <template>
-    <el-form :inline="true" :model="form">
-        <el-form-item>
-            <el-input v-model="form.query" placeholder="Enter the query"></el-input>
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="search">Search</el-button>
-        </el-form-item>
-    </el-form>
+    <div class="query-div">
+      <el-input v-model="query" placeholder="Enter the query" @keyup.enter.native="search">
+        <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+      </el-input>
+    </div>
 </template>
 
 <script>
   export default {
     data() {
       return {
-        form: {
-          query: ''
-        }
+        query: ''
       }
     },
     methods: {
       search() {
-        this.$store.dispatch('search', this.form.query)
+        this.$store.dispatch('search', this.query)
       }
     }
   }
 </script>
+
+<style>
+.query-div {
+  min-width: 500px;
+  display: inline-block;
+  margin-bottom: 50px;
+}
+</style>

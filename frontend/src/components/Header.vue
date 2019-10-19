@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <h1>ACL Paper Search Engine</h1>
-    <h3>Yiran Tao, Kechen Lu, Xinran Wang, Weilin Zhang</h3>
+    <!-- <h3>Yiran Tao, Kechen Lu, Xinran Wang, Weilin Zhang</h3> -->
   </div>
 </template>
 
