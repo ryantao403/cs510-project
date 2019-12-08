@@ -11,7 +11,7 @@ class Parser :
     def __init__(self, indexing_dir = "./papers_to_index/") :
         self.dir = indexing_dir
         self.article_dict = {}
-        self.selected_keywords = ['machine translation', 'statistical machine translation', 'computational linguistics', 'sentiment analysis', 'natural language processing', 'dependency parsing', 'named entity recognition', 'question answering', 'speech tagging', 'neural machine translation', 'natural language', 'coreference resolution', 'information extraction', 'document summarization', 'domain adaptation', 'social media']
+        self.selected_keywords = ['machine translation', 'statistical machine translation', 'computational linguistics', 'sentiment analysis', 'natural language processing', 'dependency parsing', 'named entity recognition', 'question answering', 'speech tagging', 'neural machine translation', 'coreference resolution', 'information extraction', 'document summarization', 'domain adaptation', 'social media']
         self.rake_extractor = Rake(min_length = 2, max_length = 3) # Uses stopwords for english from NLTK, and all puntuation characters.
 
 
@@ -75,7 +75,7 @@ class Searcher:
     def __init__(self, index_path, index_name = "papers", parser = None) :
         self.index_path = index_path
         self.index_name = index_name
-        self.schema = Schema(title = TEXT(stored=True), path = ID(stored=True), abstract = TEXT(stored=True))
+        self.schema = Schema(title = TEXT(stored=True), path = ID(stored=True), abstract = TEXT(stored=True), area = TEXT(stored=True))
         if not parser:
             print('No parser input, creating one...')
             self.parser = Parser()
@@ -121,7 +121,7 @@ class Searcher:
         query_results = []
         with self.idx.searcher() as searcher:
             # query title and content using Multifield Parser
-            query_parser = MultifieldParser(['title', 'abstract'], self.idx.schema)
+            query_parser = MultifieldParser(['title', 'abstract', 'area'], self.idx.schema)
             query_parser.add_plugin(FuzzyTermPlugin())
             query_parsed = query_parser.parse(query)
             results = searcher.search(query_parsed, terms=True)
