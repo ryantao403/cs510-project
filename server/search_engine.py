@@ -124,10 +124,24 @@ class Searcher:
             query_parser = MultifieldParser(['title', 'abstract', 'area'], self.idx.schema)
             query_parser.add_plugin(FuzzyTermPlugin())
             query_parsed = query_parser.parse(query)
-            results = searcher.search(query_parsed, terms=True)
+            results = searcher.search(query_parsed, terms=True, limit=100)
             for r in results:
                 query_results.append(dict(r))
 
         for v in query_results :
             print(v)
         return query_results
+
+    def suggest(self, query) :
+        """
+        input: query string
+        return json as follow 
+        {str, str, ...}
+        """
+        # suggests = []
+        # query_parser = MultifieldParser(['title', 'abstract'], searcher.idx.schema)
+        # query_parser.add_plugin(FuzzyTermPlugin())
+        # query_parsed = query_parser.parse("hello wold")
+        # corrected = s.correct_query(query_parsed, "hello wold")
+        # print(corrected.string)
+
