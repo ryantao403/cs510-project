@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 import $ from 'jquery'
 Vue.use(Vuex)
 
-const API_URL = 'http://yirant2.web.illinois.edu'
+//const API_URL = 'http://yirant2.web.illinois.edu'
+const API_URL = 'http://127.0.0.1:5000/'
 
 export default new Vuex.Store({
     state: {

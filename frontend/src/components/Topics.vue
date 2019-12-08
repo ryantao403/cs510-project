@@ -13,7 +13,7 @@
   export default {
     data() {
       return {
-        topics: ['machine learning', 'deep learning', 'data mining', 'natural language processing', 'tf-idf'],
+        topics: ['machine translation', 'statistical machine translation', 'computational linguistics', 'sentiment analysis', 'natural language processing', 'dependency parsing', 'named entity recognition', 'question answering', 'speech tagging', 'neural machine translation', 'coreference resolution', 'information extraction', 'document summarization', 'domain adaptation', 'social media'],
         selectedTopics: []
       }
     },
