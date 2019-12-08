@@ -1,7 +1,7 @@
 <template>
     <div class="document-table">
         <el-table
-            :data="$store.state.documents"
+            :data="$store.getters.filteredDocuments"
             style="width:80%"
             border
             empty-text="No data">

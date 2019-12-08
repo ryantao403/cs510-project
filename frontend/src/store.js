@@ -9,12 +9,26 @@ const API_URL = 'http://127.0.0.1:5000/'
 export default new Vuex.Store({
     state: {
         documents: [],
+        selectedTopics: [],
         dummy: 'dummy'
     },
     mutations: {
         setDocuments (state, documents) {
             state.documents = documents
-        },        
+        },
+        setSelectedTopics(state, topics) {
+            //console.log('selected: ', topics)
+            state.selectedTopics = topics
+        } 
+    },
+    getters: {
+        filteredDocuments: state => {
+            if(state.selectedTopics.length == 0) {
+                return state.documents
+            } else {
+                return state.documents.filter(doc => state.selectedTopics.includes(doc.area))
+            }
+        }
     },
     actions: {
         search(state, query){

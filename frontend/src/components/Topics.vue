@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="selectedTopics" multiple placeholder="Topics">
+    <el-select v-model="selectedTopics" multiple placeholder="Topics" @change="topicsChanged">
     <el-option
       v-for="topic in topics"
       :key="topic"
@@ -20,6 +20,10 @@
     methods: {
       search() {
         this.$store.dispatch('search', this.query)
+      },
+      topicsChanged (res) {
+        //console.log('topics changed: ', this.selectedTopics)
+        this.$store.commit('setSelectedTopics', this.selectedTopics)      
       }
     }
   }
