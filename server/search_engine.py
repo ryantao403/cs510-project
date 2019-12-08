@@ -108,7 +108,7 @@ class Searcher:
         """
         writer = self.idx.writer()
         for path, article in self.parser.article_dict.items():
-            writer.add_document(title = article['title'], path = path, abstract = article['abstract'])
+            writer.add_document(title = article['title'], path = path, abstract = article['abstract'], area = article['area'])
         writer.commit()
 
 
