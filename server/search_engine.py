@@ -138,6 +138,7 @@ class Searcher:
         return json as follow 
         {str, str, ...}
         """
+        pass
         # suggests = []
         # query_parser = MultifieldParser(['title', 'abstract'], searcher.idx.schema)
         # query_parser.add_plugin(FuzzyTermPlugin())
