@@ -2,16 +2,19 @@ from whoosh.index import *
 from whoosh.fields import *
 from whoosh.qparser import *
 from bs4 import BeautifulSoup as bs4
+from rake_nltk import Rake
 import os
-import glob 
 import json
+
 
 class Parser :
     def __init__(self, indexing_dir = "./papers_to_index/") :
         self.dir = indexing_dir
         self.article_dict = {}
+        self.selected_keywords = ['machine translation', 'statistical machine translation', 'computational linguistics', 'sentiment analysis', 'natural language processing', 'dependency parsing', 'named entity recognition', 'question answering', 'speech tagging', 'neural machine translation', 'natural language', 'coreference resolution', 'information extraction', 'document summarization', 'domain adaptation', 'social media']
+        self.rake_extractor = Rake(min_length = 2, max_length = 3) # Uses stopwords for english from NLTK, and all puntuation characters.
 
-        
+
     def parse_article(self, article_path) :
         raw = open(article_path, 'r')
         article = dict()
@@ -40,27 +43,33 @@ class Parser :
                 article = None
         return article
 
-    
+
     def parse_all(self) :
         count_files = 0
         count_abnormal_parses = 0
         for filepath in os.listdir(self.dir) :
             count_files += 1
             path = os.path.join(self.dir, filepath)
-            article = self.parse_xml_article(path) 
+            article = self.parse_xml_article(path)
             if article :
                 if article['title'].strip() == '' :
                     count_abnormal_parses += 1
 #                     print("### Invalid Article:", filepath)
                     continue
                 article['filename'] = filepath
-                self.article_dict[filepath] = {'title': article['title'], 'abstract': article['abstract']}
+                self.rake_extractor.extract_keywords_from_text(article['title'])
+                area = [keyword for keyword in self.rake_extractor.get_ranked_phrases() if keyword in self.selected_keywords]
+                if area:
+                    area = area[0] # only maintain one area
+                else:
+                    area = ""
+                self.article_dict[filepath] = {'title': article['title'], 'abstract': article['abstract'], 'area': area}
         print("### Parse Completed [%d/%d]" % (count_files - count_abnormal_parses, count_files))
-    
+
 
     def clean(self) :
         self.article_dict = {}
-    
+
 
 class Searcher:
     def __init__(self, index_path, index_name = "papers", parser = None) :
@@ -70,11 +79,11 @@ class Searcher:
         if not parser:
             print('No parser input, creating one...')
             self.parser = Parser()
-        else: 
+        else:
             self.parser = parser
         self.create_index()
-        
-        
+
+
     def create_index(self):
         """
         input: index path
@@ -91,13 +100,13 @@ class Searcher:
         else :
             self.idx = open_dir(self.index_path, indexname=self.index_name)
 
-    
+
     def add_files(self):
         """
         input: file_dict, key, path
-        return a index 
-        """ 
-        writer = self.idx.writer()        
+        return a index
+        """
+        writer = self.idx.writer()
         for path, article in self.parser.article_dict.items():
             writer.add_document(title = article['title'], path = path, abstract = article['abstract'])
         writer.commit()
@@ -105,8 +114,8 @@ class Searcher:
 
     def search(self, query):
         """
-        input: query string 
-        return json as follow 
+        input: query string
+        return json as follow
         {{'title': title, 'abstract': abstract, 'path': doc path}, ...}
         """
         query_results = []
@@ -122,4 +131,3 @@ class Searcher:
         for v in query_results :
             print(v)
         return query_results
-
