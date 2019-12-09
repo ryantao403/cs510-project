@@ -1,11 +1,11 @@
 <template>
     <div class="query-div">
-      <el-row :gutter="10">
-        <el-col :span="14">
+      <el-row :gutter="20">
+        <el-col :span="15">
           <el-input v-model="query" placeholder="Enter the query" @keyup.enter.native="search">
           <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
         </el-input></el-col>
-        <el-col :span="10"><Topics /></el-col>
+        <el-col :span="9"><Topics /></el-col>
       </el-row>     
     </div>
 </template>

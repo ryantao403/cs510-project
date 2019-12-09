@@ -6,12 +6,18 @@
             border
             empty-text="No data">
             <el-table-column type="index"></el-table-column>
-            <el-table-column label="Title" width="180">
+            <el-table-column label="Title" width="300">
                 <template slot-scope="scope">
                     <div><a :href="getAclLink(scope.row)" target="_blank">{{ scope.row.title }}</a></div>
                 </template>
             </el-table-column>
             <el-table-column prop="abstract" label="Abstract"></el-table-column>
+            <el-table-column prop="area" label="Area" width="200">
+                <template slot-scope="scope">
+                    <el-tag v-if="scope.row.area">{{scope.row.area}}</el-tag>
+                    <div v-else></div>
+                </template>
+            </el-table-column>
             <el-table-column
                 fixed="right"
                 label="Relevant?"
