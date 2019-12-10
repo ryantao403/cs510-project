@@ -33,5 +33,13 @@ def relevance():
     res = {'title':title, 'relevant':relevant}
     return jsonify(res)
 
+@app.route('/suggest', methods=['GET', 'POST'])
+def suggest():
+    parser = search_engine.Parser()
+    searcher = search_engine.Searcher(index_path = './indexdir', parser = parser)
+    query = request.form.get('query', 'information retrieval')
+    results = searcher.suggest(query)
+    return jsonify(results)
+
 if __name__ == '__main__':
     app.run()
