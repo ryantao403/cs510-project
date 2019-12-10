@@ -132,17 +132,34 @@ class Searcher:
             print(v)
         return query_results
 
+
     def suggest(self, query) :
         """
         input: query string
         return json as follow 
         {str, str, ...}
         """
-        pass
-        # suggests = []
-        # query_parser = MultifieldParser(['title', 'abstract'], searcher.idx.schema)
-        # query_parser.add_plugin(FuzzyTermPlugin())
-        # query_parsed = query_parser.parse("hello wold")
-        # corrected = s.correct_query(query_parsed, "hello wold")
-        # print(corrected.string)
+        # to make correct search suggestions
+        word_candidates = []
+        query = "machiine learn"
+        s = searcher.idx.reader()
+        corrector = s.corrector('abstract')
+        with self.idx.reader() as r :
+            for word in query.split(" ") :
+                word_candidates.append([x[1].decode('utf-8') for x in r.most_distinctive_terms('title', number=2, prefix=word)])
+                if len(word_candidates[-1]) == 0 :
+                    word_candidates[-1] = [x for x in corrector.suggest(word, limit = 2)]
+                if len(word_candidates[-1]) == 0 :
+                    word_candidates[-1] = [word]
+            # print(word_candidates)
+
+        res = [""]
+        for word_list in word_candidates :
+            new = []
+            for prefix in res :
+                for word in word_list :
+                    new.append((prefix + " " + word).strip())
+            res = new
+        print(res)
+        return res
 
