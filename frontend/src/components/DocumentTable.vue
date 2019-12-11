@@ -53,8 +53,12 @@ export default {
                 relevant: true
              })            
         },
+
         noClicked(row) {
             console.log('not relevant' + row.title)
+            // Remove irrelevant items from store
+            var index = this.$store.state.documents.map(e => e.title).indexOf(row.title)
+            this.$delete(this.$store.state.documents,index)
             this.$store.dispatch('markRelevance', {
                 title: row.title,
                 path: row.path,
