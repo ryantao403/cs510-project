@@ -2,9 +2,9 @@
     <div class="query-div">
       <el-row :gutter="20">
         <el-col :span="15">
-          <el-input v-model="query" placeholder="Enter the query" @keyup.enter.native="search">
+          <el-autocomplete class="inline-input" v-model="query" placeholder="Enter the query" @keyup.enter.native="search" :fetch-suggestions="suggests" :trigger-on-focus="false" @select="change">
           <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
-        </el-input></el-col>
+        </el-autocomplete></el-col>
         <el-col :span="9"><Topics /></el-col>
       </el-row>     
     </div>
@@ -12,19 +12,34 @@
 
 <script>
   import Topics from './Topics'
+  import $ from 'jquery'
   export default {
     components : {
       Topics
     },
     data() {
       return {
-        query: ''
+	  query: '',
+	  timeout: null
       }
     },
     methods: {
-      search() {
-        this.$store.dispatch('search', this.query)
-      }
+    	search() {
+	    this.$store.dispatch('search', this.query)
+	},
+
+	suggests(query, cb) {
+	    this.$store.dispatch('getSuggests', {
+		query: query,
+		callback: cb,
+	    })
+	},
+
+	change(item) {
+	    console.log(item)
+	    this.$store.dispatch('search', item.value)
+	},
+
     }
   }
 </script>
