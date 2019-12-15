@@ -10,6 +10,7 @@ export default new Vuex.Store({
     state: {
         documents: [],
         selectedTopics: [],
+	suggestions: [],
         dummy: 'dummy'
     },
     mutations: {
@@ -19,7 +20,10 @@ export default new Vuex.Store({
         setSelectedTopics(state, topics) {
             //console.log('selected: ', topics)
             state.selectedTopics = topics
-        } 
+        },
+	setSuggestions(state, suggestions) {
+	    state.suggestions = suggestions
+	}
     },
     getters: {
         filteredDocuments: state => {
@@ -28,7 +32,10 @@ export default new Vuex.Store({
             } else {
                 return state.documents.filter(doc => state.selectedTopics.includes(doc.area))
             }
-        }
+        },
+	matchedSuggestions: state => {
+	    return state.suggestions
+	}
     },
     actions: {
         search(state, query){
@@ -62,6 +69,22 @@ export default new Vuex.Store({
                     console.log(e)
                 }
             })
-        }
+        },
+	getSuggests(state, payload) {
+	    $.ajax({
+                type: "POST",
+                url: API_URL + '/search/suggest',
+                data: {
+                    query: payload.query
+                },
+                success: (res) => {
+                    state.commit('setSuggestions', res)
+		    payload.callback(res)
+                },
+                error: (ex) => {
+                    console.log(e)
+                }
+            })
+	}
     }
 })
