@@ -141,8 +141,7 @@ class Searcher:
         """
         # to make correct search suggestions
         word_candidates = []
-        query = "machiine learn"
-        s = searcher.idx.reader()
+        s = self.idx.reader()
         corrector = s.corrector('abstract')
         with self.idx.reader() as r :
             for word in query.split(" ") :
@@ -161,5 +160,5 @@ class Searcher:
                     new.append((prefix + " " + word).strip())
             res = new
         print(res)
-        return res
+        return [{'value':x} for x in res]
 
