@@ -261,10 +261,13 @@ class Searcher:
         return query_results
 
     def recommend(self, doc_path, top = 20) :
-        results = []
+        recommend_results = []
         docnum = self.bm25_searcher.document_number(path=doc_path)
+        if not docnum :
+            return recommend_results
+
         for r in self.bm25_searcher.more_like(docnum, 'abstract', top) :
-            results.append(dict(r))
-        return results
+            recommend_results.append(dict(r))
+        return recommend_results
 
 
