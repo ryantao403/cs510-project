@@ -1,7 +1,7 @@
 <template>
     <div class="document-table">
         <el-table
-            :data="$store.getters.filteredDocuments"
+            :data="displayData"
             style="width:80%"
             border
             empty-text="No data">
@@ -11,7 +11,12 @@
                     <div><a :href="getAclLink(scope.row)" target="_blank">{{ scope.row.title }}</a></div>
                 </template>
             </el-table-column>
-            <el-table-column prop="abstract" label="Abstract"></el-table-column>
+            <el-table-column prop="abstract" label="Abstract">
+                <template slot-scope="scope">
+                    <div>{{ getAbstract(scope.row) }}</div>
+                    <div><a :href="getDocPage(scope.row)"> More </a></div>
+                </template>
+            </el-table-column>
             <el-table-column prop="area" label="Area" width="200">
                 <template slot-scope="scope">
                     <el-tag v-if="scope.row.area">{{scope.row.area}}</el-tag>
@@ -28,11 +33,35 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-pagination
+            @current-change="handleCurrentChange"
+            background
+            layout="->, prev, pager, next"
+            :total="totalPage">
+        </el-pagination>
     </div>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+          pageNum: 1,
+        };
+    },
+    computed: {  
+
+        displayData() {
+            if (!this.$store.getters.filteredDocuments || this.$store.getters.filteredDocuments.length === 0) return [];
+
+            return this.$store.getters.filteredDocuments.slice((this.pageNum-1)*10, this.pageNum*10)
+
+          },
+        totalPage(){
+            return Math.ceil(this.$store.getters.filteredDocuments.length/10) * 10
+        }
+
+    },
     methods: {
         getAclLink(row) {            
             if(!row || !row.path) {
@@ -44,6 +73,21 @@ export default {
                 return "https://www.aclweb.org/anthology/" + row.path.substring(0, dot) + ".pdf"
             }
             return ""
+        },
+        getAbstract(row) {
+            let abstract = row.abstract;
+            if (abstract.length > 200){
+                abstract = abstract.substring(0, 200) + "..."
+            }
+            return abstract
+        },
+        getDocPage(row){
+            let link = "doc/";
+            let dot = row.path.indexOf('.')
+            if(dot >= 0) {
+                link = link + row.path.substring(0, dot)
+            }
+            return link
         },
         yesClicked(row) {
             console.log('relevant' + row.title)
@@ -64,6 +108,11 @@ export default {
                 path: row.path,
                 relevant: false
             })            
+        },
+
+        handleCurrentChange(val) {
+            console.log(`current page: ${val}`);
+            this.pageNum=val;
         }
     }
 }

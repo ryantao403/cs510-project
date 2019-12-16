@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Main from './components/Main.vue';
+import Search from './components/Search.vue';
+import Page from './components/Page.vue';
 
 Vue.use(Router);
 
@@ -9,9 +10,14 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/main',
-      name: 'main',
-      component: Main,
+      path: '/',
+      name: 'index',
+      component: Search,
+    },
+    {
+        path: '/doc/:id',
+        name: 'doc',
+        component: Page,
     }
   ],
 });
