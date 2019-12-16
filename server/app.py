@@ -40,5 +40,12 @@ def suggest():
     results = searcher.suggest(query)
     return jsonify(results)
 
+@app.route('/recommend', methods=['GET', 'POST'])
+def recommend():
+    doc_path = request.form.get('path', '*')
+    results = searcher.recommend(doc_path)
+    return jsonify(results)
+
+
 if __name__ == '__main__':
     app.run()
