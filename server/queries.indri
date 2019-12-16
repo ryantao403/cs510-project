@@ -1,0 +1,412 @@
+<parameters>
+<query>
+#combine(
+Does anaphora resolution improve summarization  based on latent semantic analysis  performance 
+)
+</query>
+<query>
+#combine(
+Using anaphora  coreference  resolution and its applications 
+)
+</query>
+<query>
+#combine(
+Evaluation of text summarization and anaphora resolution 
+)
+</query>
+<query>
+#combine(
+problems with extractive multilingual summarization
+)
+</query>
+<query>
+#combine(
+How to learn occupation related activities  Is the classification of people according to their occupations based on automatically learned occupation related activities reliable 
+)
+</query>
+<query>
+#combine(
+Divide the biography into 3 parts containing the following types of activities  general biographical  occupation related  person specific
+)
+</query>
+<query>
+#combine(
+Automatically extract candidate activities used for the description of people of various occupations
+)
+</query>
+<query>
+#combine(
+how to build word alignment models with high quality alignments and efficient training algorithms for statistical machine translation 
+)
+</query>
+<query>
+#combine(
+How to induce statistical phrase translation models from word alignments and their model 
+)
+</query>
+<query>
+#combine(
+whether positional preferences the user may have in creating a summary can be exploited to possibly improve summarization 
+)
+</query>
+<query>
+#combine(
+Is it possible to borrow ideas from syntactic chunking to automatically determine the elementary discourse units and their functions in sentences and is this useful for sentence compression 
+)
+</query>
+<query>
+#combine(
+Can knowledge lean methods be used to discourse chunk a sentence 
+)
+</query>
+<query>
+#combine(
+Which machine learning set up is best suited for discourse sentence chunking  i e  classifier stacking  one step vs  two step chunking  
+)
+</query>
+<query>
+#combine(
+Can sentences be compressed by discourse chunking them automatically and then dropping all satellite spans 
+)
+</query>
+<query>
+#combine(
+automatic identification of sources of opinions 
+)
+</query>
+<query>
+#combine(
+how can we model automatic identification of sources of opinions with conditional random fields 
+)
+</query>
+<query>
+#combine(
+Given that a toponym  place name  can potentially refer to multiple places in news  can we use gazetteers and corpora to disambiguate different types of places  given scarce annotated data 
+)
+</query>
+<query>
+#combine(
+quantification of toponym ambiguity
+)
+</query>
+<query>
+#combine(
+acquiring gazetteer resources
+)
+</query>
+<query>
+#combine(
+finding alternatives to training a classifier on human annotated data
+)
+</query>
+<query>
+#combine(
+identifying textual features for a toponym classifier
+)
+</query>
+<query>
+#combine(
+evaluating the toponym classifier
+)
+</query>
+<query>
+#combine(
+Establishing that an automatic method to acquire predominant senses can outperform a manually derived first sense heuristic when dealing with WSD of domain specific text for certain types of words 
+)
+</query>
+<query>
+#combine(
+The production of sense annotated domain specific corpora for evaluation
+)
+</query>
+<query>
+#combine(
+automatic identification of words which would benefit from an automatically acquired first sense heuristic   word sense disambiguation
+)
+</query>
+<query>
+#combine(
+Find the optimal machine learning approach to identify the Chinese Named Entities like person name  location name  organization name in Chinese Text 
+)
+</query>
+<query>
+#combine(
+ For the current Word Model for Chinese Named Entity Recognition  data sparseness problem is very serious  Therefore  we want to find a solution to resolve it 
+)
+</query>
+<query>
+#combine(
+Search space is very large when only using statistical model  so we try to restrict the candidate generation by using human knowledge    Chinese named entity recognition
+)
+</query>
+<query>
+#combine(
+match inconsistently spelled names in ASR text  for example Lewinskey and Lewinski in order to boost performance of information retrieval on spoken document collections 
+)
+</query>
+<query>
+#combine(
+How can we fully utilize information about tag sequences in machine learning based algorithms for sequence tagging tasks 
+)
+</query>
+<query>
+#combine(
+How well does greedy ensemble selection optimize difficult and cumbersome performance metrics for natural language processing problems 
+)
+</query>
+<query>
+#combine(
+Can a computer find noun phrase coreference chains in a document 
+)
+</query>
+<query>
+#combine(
+Can a computer automatically identify words in a document that express perspective  opinion  or private state 
+)
+</query>
+<query>
+#combine(
+Given perspective  opinion  and private state words  can a computer infer the hierarchy among the different perspectives 
+)
+</query>
+<query>
+#combine(
+Would monolingual corpora in a second language  such as Chinese  be a good resource to obtain training data  sense examples  for machine learning Word Sense Disambiguation  WSD  systems 
+)
+</query>
+<query>
+#combine(
+What second language would be best suitable to carry out the acquisition of sense examples    word sense disambiguation
+)
+</query>
+<query>
+#combine(
+Given a second language  what resources would be best to use for acquiring sense examples  ie  what bilingual dictionaries and what monolingual corpora can achieve best WSD performance 
+)
+</query>
+<query>
+#combine(
+Given a set of sense examples  what machine learning algorithm can achieve high performance on this particular training data and why    word sense disambiguation
+)
+</query>
+<query>
+#combine(
+Is it possible to predict emotion and non emotion from text 
+)
+</query>
+<query>
+#combine(
+Can more sophisticated features benefit emotion prediction 
+)
+</query>
+<query>
+#combine(
+Handling biographical questions with implicature in a question answering system 
+)
+</query>
+<query>
+#combine(
+Can we build a parser that outputs semantic role annotation 
+)
+</query>
+<query>
+#combine(
+Does learning semantic roles improve parsing performance 
+)
+</query>
+<query>
+#combine(
+How well can classical inference engines  namely theorem proving and model building  be adapted for solving the textual entailment problem 
+)
+</query>
+<query>
+#combine(
+Do combination strategies improve semantic role labeling 
+)
+</query>
+<query>
+#combine(
+What is the state of the art on semantic role labeling using real syntax 
+)
+</query>
+<query>
+#combine(
+Given a document containing noun phrases annotated with predefined types of entities  such as Person  Organization  Location  Facility  and Geo Political Entity   where are the instances where the text asserts a relationship  such as Role  Located At  Near  Social  between pairs of entities 
+)
+</query>
+<query>
+#combine(
+What is the word word dependency structure of a sentence 
+)
+</query>
+<query>
+#combine(
+How can we automatically calculate measures of confidence for single words in machine translation output 
+)
+</query>
+<query>
+#combine(
+How can the information given in state of the art models for statistical machine translation be explored for confidence estimation 
+)
+</query>
+<query>
+#combine(
+How can we leverage from multiple sources of information to acquire annotated resources  for training a Chinese Part of Speech tagger 
+)
+</query>
+<query>
+#combine(
+Active learning    if we can only afford to annotate a small amount of Chinese data  what kind of data should be annotated so as to be the most helpful in training the tagging model 
+)
+</query>
+<query>
+#combine(
+Projecting resources    can we take advantage of high quality tagged data for English and the availability of parallel corpus to produce automatically tagged Chinese data  to train a Chinese tagger  
+)
+</query>
+<query>
+#combine(
+Combining information sources    what is the best way to combine the model trained from the small manually annotated data and the model trained from projected data 
+)
+</query>
+<query>
+#combine(
+How can role semantic information be transferred between parallel sentences in different languages 
+)
+</query>
+<query>
+#combine(
+How to assign a role semantic analysis to a sentence   Shallow semantic parsing  
+)
+</query>
+<query>
+#combine(
+The usefulness of role semantic analyses for NLP tasks
+)
+</query>
+<query>
+#combine(
+What is the benefit  if any  of exploiting knowledge contained in verb lexicons for the task of automatically labelling semantic roles 
+)
+</query>
+<query>
+#combine(
+ To what degree is it possible to adapt  via a role mapping  a corpus annotated with a fine grained set of semantic roles for the purpose of evaluating a role labelling system that uses a coarser grained role set 
+)
+</query>
+<query>
+#combine(
+How can we use a graph based approach in question focused sentence retrieval 
+)
+</query>
+<query>
+#combine(
+How can we perform question focused sentence retrieval and automatic answer finding given the prevalence of paraphrasing in news texts 
+)
+</query>
+<query>
+#combine(
+Is it possible to use existing methods for monologue topic segmentation on tutorial dialogue
+)
+</query>
+<query>
+#combine(
+How can CRFs be made to scale with large numbers of labels 
+)
+</query>
+<query>
+#combine(
+Is it possible to select a highly informative number of bits when creating error correcting codes 
+)
+</query>
+<query>
+#combine(
+How can CRFs be regularised without using parameterised priors 
+)
+</query>
+<query>
+#combine(
+How are LOP CRFs trained 
+)
+</query>
+<query>
+#combine(
+How do LOP CRFs compare with regularised CRFs 
+)
+</query>
+<query>
+#combine(
+Is diversity important for good logarithmic opinion pool conditional random field performance 
+)
+</query>
+<query>
+#combine(
+Can we generalize learning word senses by using a common set of super senses instead of an enumerative lexicon 
+)
+</query>
+<query>
+#combine(
+How to perform the intersection of IDL expressions with n gram language models 
+)
+</query>
+<query>
+#combine(
+How to perform natural language generation for text to text applications 
+)
+</query>
+<query>
+#combine(
+How can non projective dependencies be captured accurately and efficiently in dependency based syntactic parsing 
+)
+</query>
+<query>
+#combine(
+Can non projective dependencies be captured with an accuracy sufficient to improve overall parsing accuracy 
+)
+</query>
+<query>
+#combine(
+Can non projective dependencies be captured with an accuracy sufficient to outperform the best projective dependency parsers 
+)
+</query>
+<query>
+#combine(
+How to effectively utilize statistics based semantic compatibility information to improve pronoun resolution 
+)
+</query>
+<query>
+#combine(
+What clarification classification scheme  is suited to describe naturally occurring CRs in order to generate them 
+)
+</query>
+<query>
+#combine(
+Can Fragments  a certain class of non sentential utterances  be automatically detected and linked up with their antecedents  and can criteria for this task be learned using machine learning techniques 
+)
+</query>
+<query>
+#combine(
+Can the class of non sentential utterances that do have an individual antecedent be consistently defined 
+)
+</query>
+<query>
+#combine(
+Automatic evaluation of summaries and automatic metaevaluation of metrics  How to combine and meta evaluate similarity metrics to measure the proximity from an automatic summary to a set of models 
+)
+</query>
+<query>
+#combine(
+Combining metrics and similarities from models  manual summaries  without considering metric scales 
+)
+</query>
+<query>
+#combine(
+Defining criteria for the meta evaluation of metrics  human judges are expensive 
+)
+</query>
+<query>
+#combine(
+Defining a measure to estimate the reliability of the set of evaluated summaries which have been used to meta evaluate metrics  That is  are the automatic summaries in the corpus representative from the possible automatic solutions 
+)
+</query>
+</parameters>

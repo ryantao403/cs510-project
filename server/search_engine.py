@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup as bs4
 from rake_nltk import Rake
 import os
 import json
+import pyltr
+import tempfile
 
 
 class Parser :
@@ -82,7 +84,21 @@ class Searcher:
         else:
             self.parser = parser
         self.create_index()
+        self.init_env()
 
+    def init_env(self) :
+        from whoosh import qparser, query, scoring
+        from whoosh.analysis import RegexTokenizer
+        from whoosh.lang.morph_en import variations
+
+        self.freq_searcher = self.idx.searcher(weighting=scoring.Frequency())
+        self.tfidf_searcher = self.idx.searcher(weighting=scoring.TF_IDF())
+        self.bm25_searcher = self.idx.searcher(weighting=scoring.BM25F(B=0.74, K1=1.52))
+        self.query_parser = QueryParser('abstract', self.idx.schema)
+        self.query_parser.add_plugin(FuzzyTermPlugin())
+        self.title_parser = QueryParser('title', self.idx.schema)
+        self.title_parser.add_plugin(FuzzyTermPlugin())
+        self.tokenizer = RegexTokenizer()
 
     def create_index(self):
         """
@@ -161,4 +177,94 @@ class Searcher:
             res = new
         print(res)
         return [{'value':x} for x in res]
+
+    def genearte_LETOR_data(self, qid, cur_query, docid, content, title, rel) :
+        terms = cur_query.split(' ')
+        q = self.query_parser.parse("path:\'"+docid+"\' "+" OR ".join(terms))
+        q_2 = self.title_parser.parse("path:\'"+docid+"\' "+" OR ".join(terms))
+        results = self.freq_searcher.search(q, limit=None)
+        tf_a = 0.0
+        if len(results):
+    #         print("Abstract TF feature", results[0].score)
+            tf_a = results[0].score
+        
+        results = self.freq_searcher.search(q_2, limit=None)
+        tf_t = 0.0
+        if len(results):
+    #         print("Title TF feature", results[0].score)
+            tf_t = results[0].score
+
+        idf_a = sum(self.freq_searcher.idf("abstract", x) for x in terms)
+    #     print("Abstract IDF feature", idf_a)
+        idf_t = sum(self.freq_searcher.idf("title", x) for x in terms)
+    #     print("Title IDF feature", idf_t)
+
+        results = self.tfidf_searcher.search(q, limit=None)
+        tfidf_a = 0.0
+        if len(results):
+    #         print("Abstract TF-IDF feature", results[0].score)
+            tfidf_a = results[0].score
+        
+        results = self.tfidf_searcher.search(q_2, limit=None)
+        tfidf_t = 0.0
+        if len(results):
+    #         print("Title TF-IDF feature", results[0].score)
+            tfidf_t = results[0].score
+
+        results = self.bm25_searcher.search(q, limit=None)
+        bm25_a = 0.0
+        if len(results):
+    #         print("Abstract BM25 feature", results[0].score)
+            bm25_a = results[0].score
+        
+        results = self.bm25_searcher.search(q_2, limit=None)
+        bm25_t = 0.0
+        if len(results):
+    #         print("Title BM25 feature", results[0].score)
+            bm25_t = results[0].score
+
+        dl = len(list(x for x in self.tokenizer(content)))
+    #     print("DL feature", dl)
+        
+        tl = len(list(x for x in self.tokenizer(title)))
+    #     print("TL feature", tl)
+        
+        return rel + " qid:%s 1:%f 2:%f 3:%f 4:%f 5:%f 6:%f 7:%f 8:%f 9:%f 10:%f #docid = %s\n" % (qid, tf_a, tf_t, idf_a, idf_t, tfidf_a, tfidf_t, bm25_a, bm25_t, dl, tl, docid)
+
+    def ltr_search(self, query) :
+        from whoosh.query import Variations
+        query_results = []
+        with open('ltr_model.pickle', 'rb') as f:
+            model = pickle.load(f)
+        searcher = self.idx.searcher()
+        # query title and content using Multifield Parser
+        query_parser = MultifieldParser(['title', 'abstract', 'area'], self.idx.schema, termclass=Variations)
+        query_parser.add_plugin(FuzzyTermPlugin())
+        query_parsed = query_parser.parse(query)
+        results = searcher.search(query_parsed, terms=True, limit=100)
+
+        wr = tempfile.TemporaryFile('w+')
+        for r in results:
+            wr.write(self.genearte_LETOR_data('1', query, r['path'], r['abstract'], r['title'], '1'))
+        wr.seek(0)
+        features, _, qids, docs = pyltr.data.letor.read_dataset(wr)
+        p = model.predict(features)
+        wr.close()
+
+        results = []
+        for j in range(len(qids)) :
+            results.append((p[j], searcher.document(path=docs[j][8:].strip())))
+        results.sort(key = lambda x:x[0], reverse = True)
+        for r in results:
+            query_results.append(dict(r[1]))
+
+        return query_results
+
+    def recommend(self, doc_path, top = 20) :
+        results = []
+        docnum = self.bm25_searcher.document_number(path=doc_path)
+        for r in self.bm25_searcher.more_like(docnum, 'abstract', top) :
+            results.append(dict(r))
+        return results
+
 
