@@ -1,7 +1,7 @@
 <template>
     <div class="document-table">
         <el-table
-            :data="tableData"
+            :data="displayData"
             style="width:80%"
             border
             empty-text="No data">
@@ -46,23 +46,22 @@
 export default {
     data() {
         return {
-          tableData: this.$store.getters.filteredDocuments,
           pageNum: 1,
-          totalPage: Math.ceil(this.$store.getters.filteredDocuments.length/10) * 10
         };
     },
-    /*computed: {  
+    computed: {  
 
         displayData() {
-            console.log(this.pageNum, this.totalPage)
-            console.log(this.tableData.length, this.tableData)
-            if (!this.tableData || this.tableData.length === 0) return [];
+            if (!this.$store.getters.filteredDocuments || this.$store.getters.filteredDocuments.length === 0) return [];
 
-            return this.tableData.slice((this.pageNum-1)*10, this.pageNum*10)
+            return this.$store.getters.filteredDocuments.slice((this.pageNum-1)*10, this.pageNum*10)
 
           },
+        totalPage(){
+            return Math.ceil(this.$store.getters.filteredDocuments.length/10) * 10
+        }
 
-    },*/
+    },
     methods: {
         getAclLink(row) {            
             if(!row || !row.path) {

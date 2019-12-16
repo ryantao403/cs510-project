@@ -27,7 +27,6 @@ export default new Vuex.Store({
     },
     getters: {
         filteredDocuments: state => {
-            console.log("filteredDocuments")
             if(state.selectedTopics.length == 0) {
                 return state.documents
             } else {
