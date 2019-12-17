@@ -7,6 +7,7 @@ import os
 import json
 import pyltr
 import tempfile
+import shelve
 
 
 class Parser :
@@ -269,5 +270,18 @@ class Searcher:
         for r in self.bm25_searcher.more_like(docnum, u'abstract', top=top) :
             recommend_results.append(dict(r))
         return {'recommendation':recommend_results, 'paper':dict(doc)}
+
+    def log_relevance(self, doc_path, query, rel) :
+        rels = shelve.open("user_qrels")
+        pair = doc_path + '##' + query
+        if pair not in rels :
+            rels[pair] = [0, 0]
+
+        if rel :
+            rels[pair][0] += 1
+        else :
+            rels[pair][1] += 1
+        rels.close()
+        return {'error': None}
 
 

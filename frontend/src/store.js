@@ -12,7 +12,8 @@ export default new Vuex.Store({
         selectedTopics: [],
         docRecommendation: [],
         doc: {},
-	    suggestions: [],
+	suggestions: [],
+	currQuery: 'information retrieval',
         dummy: 'dummy'
     },
     mutations: {
@@ -30,6 +31,10 @@ export default new Vuex.Store({
             state.docRecommendation = recommendation.recommendation
             state.doc = recommendation.paper
         },
+	setCurrQuery(state, query) {
+	    state.currQuery = query
+	    console.log(query)
+	},
     },
     getters: {
         filteredDocuments: state => {
@@ -44,7 +49,11 @@ export default new Vuex.Store({
     	},
         recommendedDocs: state =>{
             return state.docRecommendation
-        }
+        },
+	currentQuery: state => {
+	    return state.currQuery
+	},
+
     },
     actions: {
         search(state, query){
@@ -55,6 +64,7 @@ export default new Vuex.Store({
                     query: query
                 },
                 success: (res) => {
+		    state.commit('setCurrQuery', query)
                     state.commit('setDocuments', res)
                 },
                 error: (ex) => {
@@ -69,7 +79,8 @@ export default new Vuex.Store({
                 data: {
                     title: payload.title,
                     path: payload.path,
-                    relevant: payload.relevant
+                    relevant: payload.relevant,
+		    query: payload.query
                 },
                 success: (res) => {
                     console.log(res.title + ' ' + res.relevant)
@@ -79,8 +90,8 @@ export default new Vuex.Store({
                 }
             })
         },
-	    getSuggests(state, payload) {
-	       $.ajax({
+	getSuggests(state, payload) {
+	   $.ajax({
                 type: "POST",
                 url: API_URL + '/search/suggest',
                 data: {
@@ -94,7 +105,7 @@ export default new Vuex.Store({
                     console.log(e)
                 }
             })
-	    },
+	},
         getDocRecommendation(state, payload){
             $.ajax({
                 type: "POST",

@@ -81,6 +81,7 @@ export default {
             }
             return abstract
         },
+
         getDocPage(row){
             let link = "doc/";
             let dot = row.path.indexOf('.')
@@ -89,12 +90,14 @@ export default {
             }
             return link
         },
+
         yesClicked(row) {
             console.log('relevant' + row.title)
             this.$store.dispatch('markRelevance', {
                 title: row.title,
                 path: row.path,
-                relevant: true
+                relevant: true,
+		query: this.$store.getters.currentQuery
              })            
         },
 
@@ -106,7 +109,8 @@ export default {
             this.$store.dispatch('markRelevance', {
                 title: row.title,
                 path: row.path,
-                relevant: false
+                relevant: false,
+		query: this.$store.getters.currentQuery
             })            
         },
 

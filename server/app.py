@@ -28,10 +28,12 @@ def search():
 def relevance():
     title = request.form.get('title')
     path =  request.form.get('path')
-    relevant = request.form.get('relevant')
+    relevant = (request.form.get('relevant') == 'true')
+    query = request.form.get('query')
+    print(path, query, relevant)
     # do something to log the relevance
+    res = searcher.log_relevance(path, query, relevant)
 
-    res = {'title':title, 'relevant':relevant}
     return jsonify(res)
 
 @app.route('/suggest', methods=['GET', 'POST'])
