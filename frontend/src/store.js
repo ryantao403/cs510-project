@@ -12,8 +12,8 @@ export default new Vuex.Store({
         selectedTopics: [],
         docRecommendation: [],
         doc: {},
-	suggestions: [],
-	currQuery: 'information retrieval',
+	    suggestions: [],
+	   currQuery: 'information retrieval',
         dummy: 'dummy'
     },
     mutations: {

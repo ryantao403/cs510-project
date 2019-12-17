@@ -1,32 +1,62 @@
 <template>
   <div class="page">
-  	<h1>{{$store.state.doc.title}}</h1>
-    <el-col :span="12"><div class="grid-content bg-purple-dark">{{$store.state.doc.abstract}}</div></el-col>
-    <el-col :span="12">
-        <div class="document-table">
-            <el-table
-                :data="$store.getters.recommendedDocs"
-                style="width:80%"
-                border
-                empty-text="No Recommendation">
-                <el-table-column type="index"></el-table-column>
-                <el-table-column label="Title" width="200">
-                    <template slot-scope="scope">
-                        <div><a :href="getAclLink(scope.row)" target="_blank">{{ scope.row.title }}</a></div>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="abstract" label="Abstract">
-                    <template slot-scope="scope">
-                        <div>{{ getAbstract(scope.row) }}</div>
-                        <div><a :href="getDocPage(scope.row)"> More </a></div>
-                    </template>
-                </el-table-column>
-            </el-table>
-        </div>
+    <el-col :span="18" :offset="3">
+        <el-container>
+            <el-header>{{$store.state.doc.title}}</el-header>
+            <el-main>
+                <div>
+                    <h3>Abstract</h3>
+                    <p>{{$store.state.doc.abstract}}</p>
+                </div>
+
+                <div>
+                    <i class="el-icon-download"></i>
+                    <a :href="getAclLink($store.state.doc)" target="_blank"> PDF </a>
+                </div>
+            </el-main>
+            
+            <el-container style="">
+                <div><h3>Recommendations</h3></div>
+                <div>
+                    <el-carousel :interval="50000" type="card" height="250px">
+                        <el-carousel-item v-for="item in $store.getters.recommendedDocs">
+                            <el-card class="box-card" shadow="hover" style="background-color: #409EFF; color: #F2F6FC">
+                                <div slot="header" >
+                                    <span>{{item.title}}</span>
+                                </div>
+                                <div class="text item">{{ getAbstract(item) }}</div>
+                                <el-button type="text" size="small" round><a :href="getDocPage(item)"> More </a></el-button>
+                                <div></div>
+                                
+                            </el-card>
+                        </el-carousel-item>
+                    </el-carousel>
+                </div>
+            </el-container>
+        </el-container>        
     </el-col>
     
   </div>
 </template>
+
+<style>
+  .el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+    font-weight: bold;
+  }
+  
+
+  .el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+    line-height: 20px;
+  }
+
+</style>
 
 <script>
 
@@ -53,13 +83,13 @@ export default {
         },
         getAbstract(row) {
             let abstract = row.abstract;
-            if (abstract.length > 200){
-                abstract = abstract.substring(0, 200) + "..."
+            if (abstract.length > 150){
+                abstract = abstract.substring(0, 150) + "..."
             }
             return abstract
         },
         getDocPage(row){
-            let link = "doc/";
+            let link = "/doc/";
             let dot = row.path.indexOf('.')
             if(dot >= 0) {
                 link = link + row.path.substring(0, dot)

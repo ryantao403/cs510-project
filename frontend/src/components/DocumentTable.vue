@@ -83,7 +83,7 @@ export default {
         },
 
         getDocPage(row){
-            let link = "doc/";
+            let link = "/doc/";
             let dot = row.path.indexOf('.')
             if(dot >= 0) {
                 link = link + row.path.substring(0, dot)
