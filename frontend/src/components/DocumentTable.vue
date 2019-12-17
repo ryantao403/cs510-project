@@ -140,4 +140,7 @@ export default {
 .el-table {
     margin: 0 auto;
 }
+.el-pagination {
+    margin: 5% 10%;
+}
 </style>
