@@ -5,7 +5,7 @@
             style="width:80%"
             border
             empty-text="No data">
-            <el-table-column type="index"></el-table-column>
+            <el-table-column type="index" :index="pageIndex"></el-table-column>
             <el-table-column label="Title" width="300">
                 <template slot-scope="scope">
                     <div><a :href="getAclLink(scope.row)" target="_blank">{{ scope.row.title }}</a></div>
@@ -63,6 +63,9 @@ export default {
 
     },
     methods: {
+        pageIndex(index) {
+            return index + (this.pageNum - 1) * 10 + 1
+        },
         getAclLink(row) {            
             if(!row || !row.path) {
                 return ''
