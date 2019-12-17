@@ -33,7 +33,6 @@ export default new Vuex.Store({
         },
 	setCurrQuery(state, query) {
 	    state.currQuery = query
-	    console.log(query)
 	},
     },
     getters: {

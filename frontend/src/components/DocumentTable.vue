@@ -4,7 +4,8 @@
             :data="displayData"
             style="width:80%"
             border
-            empty-text="No data">
+            empty-text="No data"
+            :row-class-name="tableRowClassName">
             <el-table-column type="index" :index="pageIndex"></el-table-column>
             <el-table-column label="Title" width="300">
                 <template slot-scope="scope">
@@ -42,6 +43,13 @@
     </div>
 </template>
 
+<style>
+  .el-table .warning-row {
+    background: oldlace;
+  }
+
+</style>
+
 <script>
 export default {
     data() {
@@ -65,6 +73,12 @@ export default {
     methods: {
         pageIndex(index) {
             return index + (this.pageNum - 1) * 10 + 1
+        },
+        tableRowClassName({row, rowIndex}) {
+            if (row.rel > 0) {
+              return 'warning-row';
+            } 
+            return '';
         },
         getAclLink(row) {            
             if(!row || !row.path) {

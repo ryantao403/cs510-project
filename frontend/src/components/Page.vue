@@ -19,7 +19,7 @@
                 <div><h3>Recommendations</h3></div>
                 <div>
                     <el-carousel :interval="50000" type="card" height="250px">
-                        <el-carousel-item v-for="item in $store.getters.recommendedDocs">
+                        <el-carousel-item v-for="item in $store.getters.recommendedDocs" :key="item.path">
                             <el-card class="box-card" shadow="hover" style="background-color: #409EFF; color: #F2F6FC">
                                 <div slot="header" >
                                     <span>{{item.title}}</span>
