@@ -265,8 +265,7 @@ class Searcher:
         docnum = self.bm25_searcher.document_number(path=doc_path)
         if not docnum :
             return recommend_results
-
-        for r in self.bm25_searcher.more_like(docnum, 'abstract', top) :
+        for r in self.bm25_searcher.more_like(docnum, u'abstract', top=top) :
             recommend_results.append(dict(r))
         return recommend_results
 

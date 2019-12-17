@@ -10,7 +10,8 @@ export default new Vuex.Store({
     state: {
         documents: [],
         selectedTopics: [],
-	suggestions: [],
+        docRecommendation: [],
+	    suggestions: [],
         dummy: 'dummy'
     },
     mutations: {
@@ -21,9 +22,12 @@ export default new Vuex.Store({
             //console.log('selected: ', topics)
             state.selectedTopics = topics
         },
-	setSuggestions(state, suggestions) {
-	    state.suggestions = suggestions
-	}
+    	setSuggestions(state, suggestions) {
+    	    state.suggestions = suggestions
+    	},
+        setDocRecommendation(state, recommendation){
+            state.docRecommendation = recommendation
+        },
     },
     getters: {
         filteredDocuments: state => {
@@ -33,9 +37,12 @@ export default new Vuex.Store({
                 return state.documents.filter(doc => state.selectedTopics.includes(doc.area))
             }
         },
-	matchedSuggestions: state => {
-	    return state.suggestions
-	}
+    	matchedSuggestions: state => {
+    	    return state.suggestions
+    	},
+        recommendedDocs: state =>{
+            return state.docRecommendation
+        }
     },
     actions: {
         search(state, query){
@@ -70,8 +77,8 @@ export default new Vuex.Store({
                 }
             })
         },
-	getSuggests(state, payload) {
-	    $.ajax({
+	    getSuggests(state, payload) {
+	       $.ajax({
                 type: "POST",
                 url: API_URL + '/search/suggest',
                 data: {
@@ -85,6 +92,21 @@ export default new Vuex.Store({
                     console.log(e)
                 }
             })
-	}
+	    },
+        getDocRecommendation(state, payload){
+            $.ajax({
+                type: "POST",
+                url: API_URL + '/search/recommend',
+                data: {
+                    path: payload.path
+                },
+                success: (res) => {
+                    state.commit('setDocRecommendation', res)
+                },
+                error: (ex) => {
+                    console.log(e)
+                }
+            })
+        }
     }
 })
