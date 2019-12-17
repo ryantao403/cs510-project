@@ -92,16 +92,30 @@ export default {
         },
 
         yesClicked(row) {
+	    this.$notify({
+		title: 'User Relevance Feedback',
+		message: 'Marked the relevance for the pair',
+		//message: 'Marked the relevance for the pair [%s - %s]' % (row.path, this.$store.getters.currentQuery),
+		type: 'info',
+	    })
+
             console.log('relevant' + row.title)
             this.$store.dispatch('markRelevance', {
                 title: row.title,
                 path: row.path,
                 relevant: true,
 		query: this.$store.getters.currentQuery
-             })            
+             }) 
         },
 
         noClicked(row) {
+	    this.$notify({
+		title: 'User Relevance Feedback',
+		message: 'Marked the irrelevance for the pair',
+		//message: 'Marked the irrelevance for the pair [%s - %s]' % (row.path, this.$store.getters.currentQuery),
+		type: 'info',
+	    });
+
             console.log('not relevant' + row.title)
             // Remove irrelevant items from store
             var index = this.$store.state.documents.map(e => e.title).indexOf(row.title)
