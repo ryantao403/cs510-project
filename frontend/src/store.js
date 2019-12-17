@@ -11,6 +11,7 @@ export default new Vuex.Store({
         documents: [],
         selectedTopics: [],
         docRecommendation: [],
+        doc: {},
 	    suggestions: [],
         dummy: 'dummy'
     },
@@ -26,7 +27,8 @@ export default new Vuex.Store({
     	    state.suggestions = suggestions
     	},
         setDocRecommendation(state, recommendation){
-            state.docRecommendation = recommendation
+            state.docRecommendation = recommendation.recommendation
+            state.doc = recommendation.paper
         },
     },
     getters: {

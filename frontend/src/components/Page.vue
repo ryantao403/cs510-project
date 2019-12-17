@@ -1,32 +1,30 @@
 <template>
   <div class="page">
-  	<h1>Here!</h1>
-  	<div>doc: {{ $route.params.id }}</div>
-    <div class="document-table">
-        <el-table
-            :data="$store.getters.recommendedDocs"
-            style="width:50%"
-            border
-            empty-text="No Recommendation">
-            <el-table-column type="index"></el-table-column>
-            <el-table-column label="Title" width="200">
-                <template slot-scope="scope">
-                    <div><a :href="getAclLink(scope.row)" target="_blank">{{ scope.row.title }}</a></div>
-                </template>
-            </el-table-column>
-            <el-table-column prop="abstract" label="Abstract">
-                <template slot-scope="scope">
-                    <div>{{ getAbstract(scope.row) }}</div>
-                    <div><a :href="getDocPage(scope.row)"> More </a></div>
-                </template>
-            </el-table-column>
-            <el-table-column label="path" width="200">
-                <template slot-scope="scope">
-                    <div>{{ scope.row.path }}</div>
-                </template>
-            </el-table-column>
-        </el-table>
-    </div>
+  	<h1>{{$store.state.doc.title}}</h1>
+    <el-col :span="12"><div class="grid-content bg-purple-dark">{{$store.state.doc.abstract}}</div></el-col>
+    <el-col :span="12">
+        <div class="document-table">
+            <el-table
+                :data="$store.getters.recommendedDocs"
+                style="width:80%"
+                border
+                empty-text="No Recommendation">
+                <el-table-column type="index"></el-table-column>
+                <el-table-column label="Title" width="200">
+                    <template slot-scope="scope">
+                        <div><a :href="getAclLink(scope.row)" target="_blank">{{ scope.row.title }}</a></div>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="abstract" label="Abstract">
+                    <template slot-scope="scope">
+                        <div>{{ getAbstract(scope.row) }}</div>
+                        <div><a :href="getDocPage(scope.row)"> More </a></div>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+    </el-col>
+    
   </div>
 </template>
 
