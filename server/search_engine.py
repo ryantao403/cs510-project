@@ -238,11 +238,20 @@ class Searcher:
         with open('ltr_model.pickle', 'rb') as f:
             model = pickle.load(f)
         searcher = self.idx.searcher()
+        rels = shelve.open("user_qrels")
         # query title and content using Multifield Parser
         query_parser = MultifieldParser(['title', 'abstract', 'area'], self.idx.schema, termclass=Variations)
         query_parser.add_plugin(FuzzyTermPlugin())
         query_parsed = query_parser.parse(query)
         results = searcher.search(query_parsed, terms=True, limit=100)
+
+        max_rels = 1
+        for r in results[:] :
+            pair = r['path'] + '##' + query
+            if pair in rels :
+                max_rels = max(max_rels, abs(rels[pair][0] - rels[pair][1]))
+            #if rels[pair][1] - rels[pair][0] > 0 :
+            #    results.remove(r)
 
         wr = tempfile.TemporaryFile('w+')
         for r in results:
@@ -254,10 +263,17 @@ class Searcher:
 
         results = []
         for j in range(len(qids)) :
-            results.append((p[j], searcher.document(path=docs[j][8:].strip())))
+            d = searcher.document(path=docs[j][8:].strip())
+            pair = d['path'] + '##' + query
+            rel_score = ((rels[pair][0] - rels[pair][1]) / max_rels) if pair in rels else 0
+            results.append((p[j] * 0.8 + rel_score * 0.2, d, 1 if rel_score > 0 else 0))
+        rels.close()
+
         results.sort(key = lambda x:x[0], reverse = True)
         for r in results:
-            query_results.append(dict(r[1]))
+            new_dict = dict(r[1])
+            new_dict['rel'] = r[2]
+            query_results.append(new_dict)
 
         return query_results
 
@@ -276,12 +292,15 @@ class Searcher:
         pair = doc_path + '##' + query
         if pair not in rels :
             rels[pair] = [0, 0]
-
-        if rel :
-            rels[pair][0] += 1
         else :
-            rels[pair][1] += 1
+            counter = rels[pair]
+            if rel :
+                counter[0] += 1
+            else :
+                counter[1] += 1
+            rels[pair] = counter
         rels.close()
+
         return {'error': None}
 
 
