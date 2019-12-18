@@ -13,7 +13,7 @@
   export default {
     data() {
       return {
-        topics: ['machine translation', 'statistical machine translation', 'computational linguistics', 'sentiment analysis', 'natural language processing', 'dependency parsing', 'named entity recognition', 'question answering', 'speech tagging', 'neural machine translation', 'coreference resolution', 'information extraction', 'document summarization', 'domain adaptation', 'social media'],
+        topics: ['machine translation', 'statistical machin    e translation', 'computational linguistics', 'sentiment analysis', 'natural     language processing', 'dependency parsing', 'named entity recognition', 'que    stion answering', 'speech tagging', 'neural machine translation', 'coreferen    ce resolution', 'information extraction', 'document summarization', 'domain     adaptation', 'social media', 'data mining', 'information retrieval', 'machine learning', 'document analysis', 'sentence semantics', 'word semantics'],
         selectedTopics: []
       }
     },
