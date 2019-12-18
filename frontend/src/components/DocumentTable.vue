@@ -16,7 +16,8 @@
             <el-table-column prop="abstract" label="Abstract">
                 <template slot-scope="scope">
                     <div>{{ getAbstract(scope.row) }}</div>
-                    <div><a :href="getDocPage(scope.row)"> More </a></div>
+                    <!-- <div><a :href="getDocPage(scope.row)"> More </a></div> -->
+                    <div><router-link :to="getDocPage(scope.row)"> More </router-link></div>
                 </template>
             </el-table-column>
             <el-table-column prop="area" label="Area" width="200">

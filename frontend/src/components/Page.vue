@@ -38,7 +38,7 @@
                                     <span>{{item.title}}</span>
                                 </div>
                                 <div class="text item" style="font-size:13px;border:none;">{{ getAbstract(item) }}</div>
-                                <el-button type="text" size="small" round><a :href="getDocPage(item)"> More </a></el-button>
+                                <el-button type="text" size="small" round><router-link :to="getDocPage(item)"> More </router-link></el-button>
                                 
                             </el-card>
                         </el-carousel-item>
