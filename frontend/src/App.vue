@@ -19,7 +19,13 @@ export default {
   text-align: center;
   color: #fff;
   margin: 0px;
-  background-color: #757575;
+  border: none;
+  padding: 0;
+  background-color: #26262A;
   
+}
+
+* {
+  margin: 0;
 }
 </style>

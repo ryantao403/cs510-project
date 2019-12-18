@@ -2,8 +2,9 @@
   <div class="header">
     <el-menu
       mode="horizontal"
-      background-color="#F57C00"
-      text-color="#fff">
+      background-color="#212121"
+      text-color="#FF5722"
+      style="border:none;">
       <el-menu-item style="font-size:20px; font-weight: bold;">ACL Paper Search Engine</el-menu-item>
     </el-menu>
   	
@@ -21,6 +22,6 @@ export default {
 <style scoped>
 .header {
     text-align: center;
-    border-style: none;
+    border: none;
 }
 </style>

@@ -2,10 +2,11 @@
     <div class="document-table">
         <el-table
             :data="displayData"
-            style="width:80%"
+            style="width:80%; background-color:#fff3e0;"
             border
             empty-text="No data"
-            :row-class-name="tableRowClassName">
+            :row-class-name="tableRowClassName"
+            :header-row-class-name="tableHeaderName">
             <el-table-column type="index" :index="pageIndex"></el-table-column>
             <el-table-column label="Title" width="300">
                 <template slot-scope="scope">
@@ -47,6 +48,15 @@
     background: oldlace;
   }
 
+  .el-table-column {
+    background-color:#fff3e0;
+  }
+
+  .table-header {
+    background-color:#E64A19;
+    color: #E64A19;
+  }
+
 </style>
 
 <script>
@@ -78,6 +88,9 @@ export default {
               return 'warning-row';
             } 
             return '';
+        },
+        tableHeaderName({row, rowIndex}){
+            return 'table-header'
         },
         getAclLink(row) {            
             if(!row || !row.path) {
@@ -157,6 +170,7 @@ export default {
     margin: 0 auto;
 }
 .el-pagination {
-    margin: 5% 10%;
+    margin-right: 10%;
+    margin-top: 2%;
 }
 </style>
