@@ -49,6 +49,7 @@
   min-width: 1000px;
   display: inline-block;
   margin-bottom: 50px;
+  margin-top: 40px;
 }
 .inline-input {
   width: 80%;

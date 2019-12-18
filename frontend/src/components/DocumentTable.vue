@@ -36,7 +36,6 @@
         </el-table>
         <el-pagination
             @current-change="handleCurrentChange"
-            background
             layout="->, prev, pager, next"
             :total="totalPage">
         </el-pagination>

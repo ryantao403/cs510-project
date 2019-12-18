@@ -1,12 +1,22 @@
 <template>
   <div class="page">
+    <el-menu
+      mode="horizontal"
+      background-color="#F57C00"
+      text-color="#fff">
+      <el-menu-item style="font-size:20px; font-weight: bold;">ACL Paper Search Engine</el-menu-item>
+    </el-menu>
+    
+    <el-page-header @back="goBack" title="Back">
+    </el-page-header>
+
     <el-col :span="18" :offset="3">
         <el-container>
             <el-header>{{$store.state.doc.title}}</el-header>
-            <el-main>
-                <div>
-                    <h3>Abstract</h3>
-                    <p>{{$store.state.doc.abstract}}</p>
+            <el-main style="color:#606266; background-color:#F2F6FC;">
+                <div style="">
+                    <h4 style="color:#414345;">Abstract</h4>
+                    <p style="padding-left:70px; padding-right:70px;">{{$store.state.doc.abstract}}</p>
                 </div>
 
                 <div>
@@ -14,44 +24,50 @@
                     <a :href="getAclLink($store.state.doc)" target="_blank"> PDF </a>
                 </div>
             </el-main>
-            
-            <el-container style="">
-                <div><h3>Recommendations</h3></div>
-                <div>
-                    <el-carousel :interval="50000" type="card" height="250px">
-                        <el-carousel-item v-for="item in $store.getters.recommendedDocs" :key="item.path">
-                            <el-card class="box-card" shadow="hover" style="background-color: #409EFF; color: #F2F6FC">
-                                <div slot="header" >
-                                    <span>{{item.title}}</span>
-                                </div>
-                                <div class="text item">{{ getAbstract(item) }}</div>
-                                <el-button type="text" size="small" round><a :href="getDocPage(item)"> More </a></el-button>
-                                <div></div>
-                                
-                            </el-card>
-                        </el-carousel-item>
-                    </el-carousel>
-                </div>
-            </el-container>
-        </el-container>        
+        </el-container>
+        <p/>   
+        <div class="line"></div> 
+        <div>
+
+            <h5 style="padding-left:20px;"><i class="el-icon-cherry"></i> Related papers</h5>
+            <div>
+                <el-carousel :interval="50000" type="card" height="250px">
+                    <el-carousel-item v-for="item in $store.getters.recommendedDocs" :key="item.path">
+
+                        <el-card class="box-card" shadow="hover" style="background-color: #0097A7; color: #FFFFFF" body-style="background-color: #00BCD4; color:#B2EBF2;">
+                            <div slot="header" >
+                                <span>{{item.title}}</span>
+                            </div>
+                            <div class="text item" style="font-size:13px;">{{ getAbstract(item) }}</div>
+                            <el-button type="text" size="small" round><a :href="getDocPage(item)"> More </a></el-button>
+                            
+                        </el-card>
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+        
+        </div> 
     </el-col>
     
   </div>
 </template>
 
 <style>
+    .page {
+        
+    }
+
   .el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
+    background-color:#009688;
+    color: #FFFFFF;
     text-align: center;
     line-height: 60px;
     font-weight: bold;
+    font-size: 20px;
   }
   
 
   .el-main {
-    background-color: #E9EEF3;
-    color: #333;
     text-align: center;
     line-height: 20px;
   }
@@ -59,6 +75,7 @@
 </style>
 
 <script>
+import Header from './Header.vue'
 
 export default {
   name: 'Page',
@@ -96,6 +113,9 @@ export default {
             }
             return link
         },
+        goBack() {
+             this.$router.push('/');
+        }
     },
 }
 
